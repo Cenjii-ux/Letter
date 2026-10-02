@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Letter For You ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    background: #f3d6c4;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    font-family: Georgia, serif;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    padding-top: 40px;
+}
+
+/* =========================
+   ENVELOPE
+========================= */
+
+.container {
+    position: relative;
+
+    width: 330px;
+
+    /* Gives the page enough space to scroll */
+    height: 1000px;
+
+    flex-shrink: 0;
+}
+
+
+
+.envelope {
+    position: absolute;
+
+    width: 330px;
+    height: 210px;
+
+    background: #e9b89f;
+    border-radius: 5px;
+
+    top: 200px;
+    left: 0;
+
+    cursor: pointer;
+
+    box-shadow: 0 15px 35px rgba(0,0,0,0.18);
+
+    z-index: 5;
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+}
+
+.envelope:hover {
+    transform: translateY(-5px);
+}
+
+/* envelope front */
+.envelope::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    border-left: 165px solid transparent;
+    border-right: 165px solid transparent;
+    border-bottom: 115px solid #d99e84;
+
+    z-index: 4;
+}
+
+/* envelope flap */
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 0;
+    height: 0;
+
+    border-left: 165px solid transparent;
+    border-right: 165px solid transparent;
+    border-top: 115px solid #edbea6;
+
+    transform-origin: top;
+    transition: transform 0.8s ease;
+    z-index: 6;
+}
+
+.open .envelope {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    pointer-events: none;
+}
+
+/* heart seal */
+.seal {
+    position: absolute;
+    left: 50%;
+    top: 88px;
+    transform: translateX(-50%);
+    font-size: 35px;
+    z-index: 10;
+    transition: opacity 0.3s ease;
+}
+
+/* =========================
+   LETTER
+========================= */
+
+.letter-wrapper {
+    position: absolute;
+
+    left: 25px;
+    top: 270px;
+
+    width: 280px;
+    height: 0;
+
+    overflow: hidden;
+
+    z-index: 3;
+
+    transition:
+        height 4s cubic-bezier(.25,.8,.25,1);
+}
+
+.paper {
+    
+    width: 280px;
+    min-height: 850px;
+
+    background: #fff8e9;
+
+    padding: 45px 25px 50px;
+
+    color: #49352c;
+
+    position: relative;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,0.12);
+}
+
+
+/* =========================
+   ROLLED TOP OF PAPER
+========================= */
+
+.paper::before {
+    content: "";
+
+    position: absolute;
+
+    top: -13px;
+    left: -5px;
+
+    width: 290px;
+    height: 27px;
+
+    border-radius: 50%;
+
+    background: #ead8b8;
+
+    box-shadow:
+        0 3px 5px rgba(0,0,0,0.15);
+}
+
+
+/* =========================
+   ROLLED BOTTOM
+========================= */
+
+.paper::after {
+    content: "";
+
+    position: absolute;
+
+    bottom: -13px;
+    left: -5px;
+
+    width: 290px;
+    height: 27px;
+
+    border-radius: 50%;
+
+    background: #ead8b8;
+}
+
+
+/* =========================
+   LETTER TEXT
+========================= */
+
+.letter-content {
+
+    opacity: 0;
+
+    transform: translateY(-15px);
+
+    transition:
+        opacity 2s ease,
+        transform 2s ease;
+
+    transition-delay: 2.5s;
+}
+
+.letter-content h1 {
+    text-align: center;
+
+    font-size: 25px;
+
+    margin-bottom: 30px;
+
+    color: #9b4d4d;
+}
+
+.letter-content p {
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    margin-bottom: 20px;
+}
+
+.signature {
+    text-align: right;
+
+    margin-top: 40px;
+
+    font-style: italic;
+
+    font-size: 18px;
+
+    color: #8c4b4b;
+}
+
+
+/* =========================
+   OPEN ANIMATION
+========================= */
+
+.open .flap {
+    transform: rotateX(180deg);
+}
+
+.open .seal {
+    opacity: 0;
+}
+
+
+/* Paper unrolls DOWNWARD */
+.open .letter-wrapper {
+    height: 850px;
+}
+
+
+/* Letter slowly appears */
+.open .letter-content {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+/* =========================
+   INSTRUCTION
+========================= */
+
+.instruction {
+    position: absolute;
+
+    bottom: -55px;
+
+    width: 100%;
+
+    text-align: center;
+
+    color: #7c5147;
+
+    font-size: 14px;
+
+    transition: opacity 0.5s;
+}
+
+.open .instruction {
+    opacity: 0;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 500px) {
+
+    .container {
+        transform: scale(0.9);
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="container">
+
+    <!-- LETTER -->
+    <div class="letter-wrapper">
+
+        <div class="paper">
+
+            <div class="letter-content">
+
+                <p>
+                    Cheer up!!, my love.
+                </p>
+
+                <p>
+                    I just wanted to leave you something that you can
+                    read whenever you need a little reminder of how
+                    special you are to me
+
+                <p>
+                    I hope you know that I genuinely care about
+                    you. I appreciate every conversation, every laugh,
+                    and every moment we get to share.
+                </p>
+
+                <p>
+                    I don't know exactly what the future holds,
+                    but for now, I'm happy that you're someone
+                    I get to care about and cherish.
+                </p>
+
+                <p>
+                    So whenever you read this, remember that somewhere
+                    out there is someone quietly wishing you a good
+                    night and hoping that tomorrow brings you another
+                    reason to smile.
+                </p>
+
+                <p class="signature">
+                    With love,<br>
+                    Your Dearest, Jin❤️
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ENVELOPE -->
+    <div class="envelope" id="envelope">
+
+        <div class="flap"></div>
+
+        <div class="seal">
+            ❤️
+        </div>
+
+    </div>
+
+
+    <div class="instruction">
+        Click the envelope ❤️
+    </div>
+
+</div>
+
+
+<script>
+
+const container = document.getElementById("container");
+const envelope = document.getElementById("envelope");
+
+envelope.addEventListener("click", () => {
+
+    if (!container.classList.contains("open")) {
+
+        container.classList.add("open");
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
